@@ -1,0 +1,22 @@
+.cell {
+
+    height:40px;
+    width: 40px;
+    border: 1px solid black;
+    border-radius: 0;
+    padding: 9px;
+}
+
+#status {
+
+    font-size: large;
+    color: red;
+}
+
+
+
+.place-game {
+
+        text-align: center;
+
+}
