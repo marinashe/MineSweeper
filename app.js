@@ -93,6 +93,7 @@ mymod.controller("CalcController", function CalcController($scope) {
     
     $scope.btnCreate = function (len) {
        $scope.board = createBord(len);
+        $scope.status = 'Go!';
         game = true;
 
     };
