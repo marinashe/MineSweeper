@@ -21,22 +21,24 @@
 </div>
 
 <div id="foo" class="container ng-cloak">
-    <h1>MineSweeper</h1>
     <div ng-controller="CalcController" class="place-game">
+        <h1>MineSweeper</h1>
         <input type="number" ng-model="col" ng-init="col=6;">
-        <button ng-click="btnCreate(col)"ng-init="point=0;status=''">New Game</button>
+        <button ng-click="btnCreate(col)"ng-init="flags=col;status='Start!'">New Game</button>
         <br/>
         <br/>
-        Results: {{point}}
+        Flags: {{flags}}
         <br/>
         <p id="status">{{status}}</p>
         <br/><br/>
-        <table>
+        <table id="tab">
             <tbody>
                 <tr ng-repeat="row in board" ng-init="x=$index">
-                    <td class="cell btn {{cell.class}}" ng-repeat="cell in row"
+                    <td class="cell btn {{cell.class}}"
+                        ng-right-click ="btnDbClick(findex)"
+                        ng-repeat="cell in row"
                         ng-click="btnClick(findex)" ng-init="findex={x:x, y:$index};">
-                        <i class="{{cell.value}}">{{cell.counter}}</i>
+                        <i class="{{cell.value}}">{{cell.result}}</i>
                     </td>
                 </tr>
 

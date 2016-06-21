@@ -39,7 +39,7 @@ var createBord = function (len) {
     for ( var j = 0; j < len; j++){
         board1.push([]);
         for (var i = 0; i < len; i++){
-            board1[j].push({mine: i===0, value: 'hide', class: 'btn-success', counter: 0});
+            board1[j].push({mine: i===0, value: 'hide', class: 'btn-success', counter: 0, result: ''});
         }
     }
     board1 = shuffleArray(board1);
@@ -61,12 +61,9 @@ var shuffleArray = function(array) {
     console.log(new_array);
     var m = new_array.length,  t, n;
 
-    // While there remain elements to shuffle
     while (m) {
-        // Pick a remaining element…
         n = Math.floor(Math.random() * m--);
 
-        // And swap it with the current element.
         t = new_array[m];
         new_array[m] = new_array[n];
         new_array[n] = t;
@@ -99,24 +96,52 @@ mymod.controller("CalcController", function CalcController($scope) {
         game = true;
 
     };
+    $scope.btnDbClick = function (item) {
+        if($scope.flags != 0){
+            console.log('qwet');
+            if ($scope.board[item.x][item.y].value === "fa fa-flag"){
+                $scope.board[item.x][item.y].value = "";
+                $scope.flags = $scope.flags + 1;
+            } else {
+                $scope.board[item.x][item.y].value = "fa fa-flag";
+                $scope.flags = $scope.flags - 1;
+            }
+
+        }
+
+
+
+    };
      $scope.btnClick = function (item) {
         if (game) {
             if ($scope.board[item.x][item.y].mine){
                 $scope.board[item.x][item.y].counter = '';
                 $scope.board[item.x][item.y].value = "fa fa-bomb";
                 $scope.board[item.x][item.y].class = 'btn-danger';
-                $scope.status = 'Game Over!'
+                $scope.status = 'Game Over!';
 
                 game = false;
             } else {
                 $scope.board[item.x][item.y].class = '';
                 $scope.board[item.x][item.y].value = '';
-                $scope.point = $scope.point + 10;
+                $scope.board[item.x][item.y].result = $scope.board[item.x][item.y].counter;
+                $scope.status = 'Ufff!';
             }
         }
     };
 });
 
+mymod.directive('ngRightClick', function($parse) {
+    return function(scope, element, attrs) {
+        var fn = $parse(attrs.ngRightClick);
+        element.bind('contextmenu', function(event) {
+            scope.$apply(function() {
+                event.preventDefault();
+                fn(scope, {$event:event});
+            });
+        });
+    };
+});
 
 
 

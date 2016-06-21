@@ -13,10 +13,16 @@
     color: red;
 }
 
-
+#tab {
+        margin: 20px auto;
+}
 
 .place-game {
 
         text-align: center;
 
+}
+
+.white {
+    color: white;
 }
