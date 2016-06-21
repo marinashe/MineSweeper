@@ -126,7 +126,12 @@ mymod.controller("CalcController", function CalcController($scope) {
                 $scope.board[item.x][item.y].class = '';
                 $scope.board[item.x][item.y].value = '';
                 $scope.board[item.x][item.y].result = $scope.board[item.x][item.y].counter;
-                $scope.status = 'Ufff!';
+                if ( item.x + item.y % 2 ) {
+                    $scope.status = 'Ufff!';
+                } else {
+                    $scope.status = 'Ogooo!';
+                }
+
             }
         }
     };
