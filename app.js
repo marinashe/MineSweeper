@@ -94,17 +94,18 @@ mymod.controller("CalcController", function CalcController($scope) {
     $scope.btnCreate = function (len) {
        $scope.board = createBord(len);
         $scope.status = 'Go!';
+        $scope.flags = len;
         game = true;
 
     };
-    $scope.btnDbClick = function (item) {
+    $scope.btnDbClick = function (cell) {
         if($scope.flags != 0){
             console.log('qwet');
-            if ($scope.board[item.x][item.y].value === "fa fa-flag"){
-                $scope.board[item.x][item.y].value = "";
+            if (cell.value === "fa fa-flag"){
+                cell.value = "";
                 $scope.flags = $scope.flags + 1;
             } else {
-                $scope.board[item.x][item.y].value = "fa fa-flag";
+                cell.value = "fa fa-flag";
                 $scope.flags = $scope.flags - 1;
             }
 
@@ -113,20 +114,20 @@ mymod.controller("CalcController", function CalcController($scope) {
 
 
     };
-     $scope.btnClick = function (item) {
+     $scope.btnClick = function (cell) {
         if (game) {
-            if ($scope.board[item.x][item.y].mine){
-                $scope.board[item.x][item.y].counter = '';
-                $scope.board[item.x][item.y].value = "fa fa-bomb";
-                $scope.board[item.x][item.y].class = 'btn-danger';
+            if (cell.mine){
+                cell.counter = '';
+                cell.value = "fa fa-bomb";
+                cell.class = 'btn-danger';
                 $scope.status = 'Game Over!';
 
                 game = false;
             } else {
-                $scope.board[item.x][item.y].class = '';
-                $scope.board[item.x][item.y].value = '';
-                $scope.board[item.x][item.y].result = $scope.board[item.x][item.y].counter;
-                if ( item.x + item.y % 2 ) {
+                cell.class = '';
+                cell.value = '';
+                cell.result = cell.counter;
+                if ( Math.random() > 0.5 ) {
                     $scope.status = 'Ufff!';
                 } else {
                     $scope.status = 'Ogooo!';

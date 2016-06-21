@@ -23,8 +23,11 @@
 <div id="foo" class="container ng-cloak">
     <div ng-controller="CalcController" class="place-game">
         <h1>MineSweeper</h1>
+
         <input type="number" ng-model="col" ng-init="col=6;">
+
         <button ng-click="btnCreate(col)"ng-init="flags=col;status='Start!'">New Game</button>
+
         <br/>
         <br/>
         Flags: {{flags}}
@@ -33,11 +36,11 @@
         <br/><br/>
         <table id="tab">
             <tbody>
-                <tr ng-repeat="row in board" ng-init="x=$index">
+                <tr ng-repeat="row in board">
                     <td class="cell btn {{cell.class}}"
-                        ng-right-click ="btnDbClick(findex)"
+                        ng-right-click ="btnDbClick(cell)"
                         ng-repeat="cell in row"
-                        ng-click="btnClick(findex)" ng-init="findex={x:x, y:$index};">
+                        ng-click="btnClick(cell);">
                         <i class="{{cell.value}}">{{cell.result}}</i>
                     </td>
                 </tr>
