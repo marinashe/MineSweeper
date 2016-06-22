@@ -55,6 +55,22 @@ var createBord = function (len) {
 
 };
 
+var isWin = function (board, count_mines) {
+    var count_noOpen_fields = 0;
+    console.log(count_mines);
+    board.map(function (row) {
+        row.map(function (cell) {
+            if (!cell.result) {
+                count_noOpen_fields += 1;
+            }
+        })
+
+    })
+
+    return count_noOpen_fields === count_mines;
+
+};
+
 
 var shuffleArray = function(array) {
     var new_array = [];
@@ -65,7 +81,6 @@ var shuffleArray = function(array) {
             new_array.push(array[j][i]);
         }
     }
-    console.log(new_array);
     var m = new_array.length,  t, n;
 
     while (m) {
@@ -75,15 +90,12 @@ var shuffleArray = function(array) {
         new_array[m] = new_array[n];
         new_array[n] = t;
     }
-    console.log(new_array);
     for ( j = 0; j < len; j++){
         result.push([]);
         for ( i = 0; i < len; i++){
             result[j].push(new_array[j * array.length + i]);
-            console.log(j * len + i);
         }
     }
-    console.log(result);
   return result;
 };
 
@@ -104,6 +116,7 @@ mymod.controller("CalcController", function CalcController($scope) {
         $scope.flags = len;
         game = true;
 
+
     };
     $scope.btnRClick = function (cell) {
         if($scope.flags != 0){
@@ -115,7 +128,7 @@ mymod.controller("CalcController", function CalcController($scope) {
                 cell.value = "fa fa-flag";
                 $scope.flags = $scope.flags - 1;
             }
-            console.log(cell);
+
         }
 
 
@@ -135,9 +148,13 @@ mymod.controller("CalcController", function CalcController($scope) {
                 cell.value = '';
                 cell.result = cell.counter;
                 if ( Math.random() > 0.5 ) {
-                    $scope.status = 'Ufff!';
+                    $scope.status = 'Weee!';
                 } else {
-                    $scope.status = 'Ogooo!';
+                    $scope.status = 'Yay!';
+                }
+
+                if (isWin($scope.board, $scope.board.length)) {
+                    $scope.status = 'You win, smart guy ;)'
                 }
 
             }
