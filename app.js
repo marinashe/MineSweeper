@@ -5,6 +5,13 @@ console.log("app starts");
 var mymod = angular.module("mymodule", []);
 
 
+var openFields =  function (x, y) {
+
+    // TODO
+    console.log('no code :(');
+
+}
+
 var countMines = function (board) {
     board.map(function (row, y){
         row.map(function (cell, x) {
@@ -98,7 +105,7 @@ mymod.controller("CalcController", function CalcController($scope) {
         game = true;
 
     };
-    $scope.btnDbClick = function (cell) {
+    $scope.btnRClick = function (cell) {
         if($scope.flags != 0){
             console.log('qwet');
             if (cell.value === "fa fa-flag"){
@@ -108,7 +115,7 @@ mymod.controller("CalcController", function CalcController($scope) {
                 cell.value = "fa fa-flag";
                 $scope.flags = $scope.flags - 1;
             }
-
+            console.log(cell);
         }
 
 
@@ -151,12 +158,6 @@ mymod.directive('ngRightClick', function($parse) {
 });
 
 
-
-// // INSTEAD of ng-app:
-// angular.element(document).ready(function() {
-//     console.log("ready");
-//     angular.bootstrap(document, ['mymodule']);
-// });
 
 
 console.log("app ends");

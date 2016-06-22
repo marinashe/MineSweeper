@@ -38,7 +38,7 @@
             <tbody>
                 <tr ng-repeat="row in board">
                     <td class="cell btn {{cell.class}}"
-                        ng-right-click ="btnDbClick(cell)"
+                        ng-right-click ="btnRClick(cell)"
                         ng-repeat="cell in row"
                         ng-click="btnClick(cell);">
                         <i class="{{cell.value}}">{{cell.result}}</i>
