@@ -119,46 +119,52 @@ mymod.controller("CalcController", function CalcController($scope) {
 
     };
     $scope.btnRClick = function (cell) {
-        if($scope.flags != 0){
-            console.log('qwet');
-            if (cell.value === "fa fa-flag"){
-                cell.value = "";
-                $scope.flags = $scope.flags + 1;
-            } else {
-                cell.value = "fa fa-flag";
-                $scope.flags = $scope.flags - 1;
-            }
+        if (!cell.result) {
+            if($scope.flags != 0 ){
+                if (cell.value === "fa fa-flag"){
+                    cell.value = "";
+                    $scope.flags = $scope.flags + 1;
+                } else {
+                    cell.value = "fa fa-flag";
+                    $scope.flags = $scope.flags - 1;
+                }
 
+            }
         }
+
 
 
 
     };
      $scope.btnClick = function (cell) {
-        if (game) {
-            if (cell.mine){
-                cell.counter = '';
-                cell.value = "fa fa-bomb";
-                cell.class = 'btn-danger';
-                $scope.status = 'Game Over!';
+        if (cell.value != "fa fa-flag") {
+            if (game) {
+                if (cell.mine){
+                    cell.counter = '';
+                    cell.value = "fa fa-bomb";
+                    cell.class = 'btn-danger';
+                    $scope.status = 'Game Over!';
 
-                game = false;
-            } else {
-                cell.class = '';
-                cell.value = '';
-                cell.result = cell.counter;
-                if ( Math.random() > 0.5 ) {
-                    $scope.status = 'Weee!';
+                    game = false;
                 } else {
-                    $scope.status = 'Yay!';
-                }
+                    cell.class = '';
+                    cell.value = '';
+                    cell.result = cell.counter;
+                    if ( Math.random() > 0.5 ) {
+                        $scope.status = 'Weee!';
+                    } else {
+                        $scope.status = 'Yay!';
+                    }
 
-                if (isWin($scope.board, $scope.board.length)) {
-                    $scope.status = 'You win, smart guy ;)'
-                }
+                    if (isWin($scope.board, $scope.board.length)) {
+                        $scope.status = 'You win, smart guy ;)'
+                    }
 
+                }
             }
+
         }
+
     };
 });
 
